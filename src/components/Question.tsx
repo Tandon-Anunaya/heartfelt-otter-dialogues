@@ -1,5 +1,7 @@
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface QuestionProps {
   question: string;
@@ -9,6 +11,16 @@ interface QuestionProps {
 }
 
 export const Question = ({ question, onNext, currentIndex, totalQuestions }: QuestionProps) => {
+  const [isGlowing, setIsGlowing] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsGlowing(prev => !prev);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 100 }}
@@ -19,6 +31,19 @@ export const Question = ({ question, onNext, currentIndex, totalQuestions }: Que
       <div className="card w-full">
         <div className="text-primary/60 mb-4">{currentIndex + 1}/{totalQuestions}</div>
         <h2 className="text-2xl md:text-3xl font-light mb-8 text-primary">{question}</h2>
+        <motion.div
+          animate={{
+            scale: isGlowing ? 1.2 : 1,
+            filter: isGlowing ? "drop-shadow(0 0 8px #D946EF)" : "none",
+          }}
+          transition={{
+            duration: 1,
+            ease: "easeInOut",
+          }}
+          className="mb-8"
+        >
+          <Heart className="w-8 h-8 text-[#D946EF] mx-auto" fill="#D946EF" />
+        </motion.div>
         <button onClick={onNext} className="button">
           Next Question
         </button>
