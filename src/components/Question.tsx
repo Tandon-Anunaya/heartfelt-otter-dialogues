@@ -26,28 +26,53 @@ export const Question = ({ question, onNext, currentIndex, totalQuestions }: Que
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      className="flex flex-col items-center justify-center min-h-[60vh] w-full max-w-2xl mx-auto"
+      className="flex flex-col items-center justify-center min-h-[60vh] w-full max-w-2xl mx-auto space-y-8"
     >
       <div className="card w-full">
         <div className="text-primary/60 mb-4">{currentIndex + 1}/{totalQuestions}</div>
         <h2 className="text-2xl md:text-3xl font-light mb-8 text-primary">{question}</h2>
-        <motion.div
-          animate={{
-            scale: isGlowing ? 1.2 : 1,
-            filter: isGlowing ? "drop-shadow(0 0 8px #D946EF)" : "none",
-          }}
-          transition={{
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          className="mb-8"
-        >
-          <Heart className="w-8 h-8 text-[#D946EF] mx-auto" fill="#D946EF" />
-        </motion.div>
         <button onClick={onNext} className="button">
           Next Question
         </button>
       </div>
+      
+      <motion.div
+        animate={{
+          scale: isGlowing ? 1.2 : 1,
+          y: isGlowing ? -10 : 0,
+          filter: isGlowing ? "drop-shadow(0 0 12px #D946EF)" : "none",
+          rotate: isGlowing ? 10 : -10,
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+          times: [0, 0.5, 1],
+        }}
+        className="relative"
+      >
+        <Heart 
+          className="w-12 h-12 text-[#D946EF]" 
+          fill="#D946EF"
+          strokeWidth={1.5}
+        />
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            opacity: isGlowing ? 1 : 0,
+            scale: isGlowing ? 1.5 : 1,
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+          }}
+        >
+          <Heart 
+            className="w-12 h-12 text-[#D946EF]/30" 
+            fill="#D946EF"
+            strokeWidth={1.5}
+          />
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };
