@@ -1,9 +1,9 @@
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Question } from "@/components/Question";
 
-const questions = [
+const originalQuestions = [
   "What in life inspires you the most?",
   "What is your favorite thing about us being together?",
   "If you could relive one moment in your life, which would it be?",
@@ -11,9 +11,19 @@ const questions = [
   "What's the most important lesson life has taught you?"
 ];
 
+const shuffleArray = (array: string[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
 const Index = () => {
   const [step, setStep] = useState<"welcome" | "intro" | "questions" | "complete">("welcome");
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [questions, setQuestions] = useState(() => shuffleArray(originalQuestions));
 
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
@@ -24,6 +34,7 @@ const Index = () => {
   };
 
   const restart = () => {
+    setQuestions(shuffleArray(originalQuestions));
     setCurrentQuestion(0);
     setStep("questions");
   };
