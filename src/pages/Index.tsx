@@ -56,6 +56,11 @@ const Index = () => {
             exit={{ opacity: 0, y: -20 }}
             className="text-center max-w-2xl"
           >
+            <img 
+              src="/lovable-uploads/6bce52a1-1a49-42c7-a8d0-700041c8bd54.png" 
+              alt="Two otters holding hands with a heart"
+              className="w-64 h-64 mx-auto mb-8 object-contain" 
+            />
             <h2 className="text-3xl md:text-4xl font-light mb-6 text-primary">
               Welcome to "Because I had not otter thing to do"
             </h2>
