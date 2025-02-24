@@ -118,6 +118,7 @@ const Index = () => {
   const [step, setStep] = useState<"welcome" | "intro" | "questions" | "complete">("welcome");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState(() => shuffleArray(originalQuestions));
+
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
@@ -125,11 +126,13 @@ const Index = () => {
       setStep("complete");
     }
   };
+
   const restart = () => {
     setQuestions(shuffleArray(originalQuestions));
     setCurrentQuestion(0);
     setStep("questions");
   };
+
   return <div className="min-h-screen flex items-center justify-center p-6 mx-[24px] my-0 px-[34px] bg-red-950 rounded-3xl">
       <AnimatePresence mode="wait">
         {step === "welcome" && <motion.div key="welcome" initial={{
@@ -162,7 +165,7 @@ const Index = () => {
       }} className="text-center max-w-2xl">
             <img src="/lovable-uploads/6bce52a1-1a49-42c7-a8d0-700041c8bd54.png" alt="Two otters holding hands with a heart" className="w-64 h-64 mx-auto mb-8 object-contain" />
             <h2 className="text-3xl md:text-4xl font-light mb-6 text-primary">
-              Welcome to "Because I had not otter thing to do"
+              Welcome to "Because I had no otter thing to do"
             </h2>
             <p className="text-xl mb-8 text-accent/80">
               Want to have deeper conversations? Start and get 5 questions to ask your otter half.
